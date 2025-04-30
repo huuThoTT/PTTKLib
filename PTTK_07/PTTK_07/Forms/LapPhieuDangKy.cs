@@ -22,10 +22,13 @@ namespace PTTK_07.Forms
         }
         private void GV_LapPhieuDangKy_Load(object sender, EventArgs e)
         {
-            LoadKhachHangToGrid();
-            LoadThiSinhToGrid();
+            LayDanhSachKhachHang();
+            LayDanhSachThiSinh();
+            LayDanhSachLichThiConTrong();
+            LayDanhSachLoaiSachChungChi();
+            LayDanhSachPhieuDangKy();
         }
-        private void LoadKhachHangToGrid()
+        private void LayDanhSachKhachHang()
         {
             try
             {
@@ -48,7 +51,7 @@ namespace PTTK_07.Forms
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void LoadThiSinhToGrid()
+        private void LayDanhSachThiSinh()
         {
             try
             {
@@ -58,6 +61,55 @@ namespace PTTK_07.Forms
                 dt.Load(ts);
 
                 gvThiSinh.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void LayDanhSachLichThiConTrong()
+        {
+            try
+            {
+                var lt = new DB().Select(
+                "SELECT MaLT, NgayGioThi, SoLuongToiDa, SoLuongDaDangKy, LoaiChungChi, MaPT FROM LICH_THI WHERE SoLuongDaDangKy < SoLuongToiDa");
+
+                DataTable dt = new DataTable();
+                dt.Load(lt);
+
+                gvLichThiConTrong.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void LayDanhSachLoaiSachChungChi()
+        {
+            try
+            {
+                var lcc = new DB().Select("SELECT MaLCC, TenLoaiChungChi, LinhVucChungChi, DiemChuan, ThoiHan FROM LOAI_CHUNG_CHI");
+
+                DataTable dt = new DataTable();
+                dt.Load(lcc);
+
+                gvLoaiChungChi.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void LayDanhSachPhieuDangKy()
+        {
+            try
+            {
+                var pdk = new DB().Select("SELECT MaPDK, MaPDK, TrangThai, NgayDangKyThi, HanThanhToan, MaLCC, MaLT, MaKH, MaTS, MaNVTiepNhan FROM PHIEU_DANG_KY");
+
+                DataTable dt = new DataTable();
+                dt.Load(pdk);
+
+                gvPhieuDangKy.DataSource = dt;
             }
             catch (Exception ex)
             {
