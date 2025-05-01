@@ -43,11 +43,21 @@
             this.btnHuyTimMaKQT = new System.Windows.Forms.Button();
             this.lbKhachHang = new System.Windows.Forms.Label();
             this.gvKhachHang = new System.Windows.Forms.DataGridView();
+            this.lbThiSinh_ChungChi = new System.Windows.Forms.Label();
+            this.gvThiSinh_ChungChi = new System.Windows.Forms.DataGridView();
+            this.btnHuyMaTS_ChungChi = new System.Windows.Forms.Button();
+            this.btnTimMaTS_ChungChi = new System.Windows.Forms.Button();
+            this.txtMaTS_ChungChi = new System.Windows.Forms.TextBox();
+            this.lbMaTS_ChungChi = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.gvChungChi = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.gvKetQuaThi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvLoaiChungChi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvThiSinh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDiemSo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvKhachHang)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvThiSinh_ChungChi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvChungChi)).BeginInit();
             this.SuspendLayout();
             // 
             // lbBaiThi
@@ -142,9 +152,9 @@
             this.lbMaKQT.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lbMaKQT.Location = new System.Drawing.Point(46, 310);
             this.lbMaKQT.Name = "lbMaKQT";
-            this.lbMaKQT.Size = new System.Drawing.Size(111, 20);
+            this.lbMaKQT.Size = new System.Drawing.Size(109, 20);
             this.lbMaKQT.TabIndex = 19;
-            this.lbMaKQT.Text = "Mã Kết quả thi";
+            this.lbMaKQT.Text = "Mã kết quả thi";
             // 
             // txtMaKQT
             // 
@@ -195,11 +205,97 @@
             this.gvKhachHang.Size = new System.Drawing.Size(500, 70);
             this.gvKhachHang.TabIndex = 23;
             // 
+            // lbThiSinh_ChungChi
+            // 
+            this.lbThiSinh_ChungChi.AutoSize = true;
+            this.lbThiSinh_ChungChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbThiSinh_ChungChi.Location = new System.Drawing.Point(46, 440);
+            this.lbThiSinh_ChungChi.Name = "lbThiSinh_ChungChi";
+            this.lbThiSinh_ChungChi.Size = new System.Drawing.Size(63, 20);
+            this.lbThiSinh_ChungChi.TabIndex = 26;
+            this.lbThiSinh_ChungChi.Text = "Thí sinh";
+            // 
+            // gvThiSinh_ChungChi
+            // 
+            this.gvThiSinh_ChungChi.AllowUserToAddRows = false;
+            this.gvThiSinh_ChungChi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvThiSinh_ChungChi.Location = new System.Drawing.Point(50, 470);
+            this.gvThiSinh_ChungChi.Name = "gvThiSinh_ChungChi";
+            this.gvThiSinh_ChungChi.Size = new System.Drawing.Size(500, 200);
+            this.gvThiSinh_ChungChi.TabIndex = 25;
+            // 
+            // btnHuyMaTS_ChungChi
+            // 
+            this.btnHuyMaTS_ChungChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnHuyMaTS_ChungChi.Location = new System.Drawing.Point(475, 722);
+            this.btnHuyMaTS_ChungChi.Name = "btnHuyMaTS_ChungChi";
+            this.btnHuyMaTS_ChungChi.Size = new System.Drawing.Size(73, 34);
+            this.btnHuyMaTS_ChungChi.TabIndex = 30;
+            this.btnHuyMaTS_ChungChi.Text = "Hủy tìm";
+            this.btnHuyMaTS_ChungChi.UseVisualStyleBackColor = true;
+            this.btnHuyMaTS_ChungChi.Click += new System.EventHandler(this.btnHuyMaTS_ChungChi_Click);
+            // 
+            // btnTimMaTS_ChungChi
+            // 
+            this.btnTimMaTS_ChungChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnTimMaTS_ChungChi.Location = new System.Drawing.Point(373, 722);
+            this.btnTimMaTS_ChungChi.Name = "btnTimMaTS_ChungChi";
+            this.btnTimMaTS_ChungChi.Size = new System.Drawing.Size(56, 34);
+            this.btnTimMaTS_ChungChi.TabIndex = 29;
+            this.btnTimMaTS_ChungChi.Text = "Tìm";
+            this.btnTimMaTS_ChungChi.UseVisualStyleBackColor = true;
+            this.btnTimMaTS_ChungChi.Click += new System.EventHandler(this.btnTimMaTS_ChungChi_Click);
+            // 
+            // txtMaTS_ChungChi
+            // 
+            this.txtMaTS_ChungChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtMaTS_ChungChi.Location = new System.Drawing.Point(178, 727);
+            this.txtMaTS_ChungChi.Name = "txtMaTS_ChungChi";
+            this.txtMaTS_ChungChi.Size = new System.Drawing.Size(160, 26);
+            this.txtMaTS_ChungChi.TabIndex = 28;
+            // 
+            // lbMaTS_ChungChi
+            // 
+            this.lbMaTS_ChungChi.AutoSize = true;
+            this.lbMaTS_ChungChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbMaTS_ChungChi.Location = new System.Drawing.Point(44, 730);
+            this.lbMaTS_ChungChi.Name = "lbMaTS_ChungChi";
+            this.lbMaTS_ChungChi.Size = new System.Drawing.Size(85, 20);
+            this.lbMaTS_ChungChi.TabIndex = 27;
+            this.lbMaTS_ChungChi.Text = "Mã thí sinh";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label1.Location = new System.Drawing.Point(596, 570);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 20);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Chứng chỉ";
+            // 
+            // gvChungChi
+            // 
+            this.gvChungChi.AllowUserToAddRows = false;
+            this.gvChungChi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvChungChi.Location = new System.Drawing.Point(600, 600);
+            this.gvChungChi.Name = "gvChungChi";
+            this.gvChungChi.Size = new System.Drawing.Size(500, 70);
+            this.gvChungChi.TabIndex = 31;
+            // 
             // CapChungChi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1134, 674);
+            this.ClientSize = new System.Drawing.Size(1134, 849);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.gvChungChi);
+            this.Controls.Add(this.btnHuyMaTS_ChungChi);
+            this.Controls.Add(this.btnTimMaTS_ChungChi);
+            this.Controls.Add(this.txtMaTS_ChungChi);
+            this.Controls.Add(this.lbMaTS_ChungChi);
+            this.Controls.Add(this.lbThiSinh_ChungChi);
+            this.Controls.Add(this.gvThiSinh_ChungChi);
             this.Controls.Add(this.lbKhachHang);
             this.Controls.Add(this.gvKhachHang);
             this.Controls.Add(this.btnHuyTimMaKQT);
@@ -222,6 +318,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvThiSinh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDiemSo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvKhachHang)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvThiSinh_ChungChi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvChungChi)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,5 +342,13 @@
         private System.Windows.Forms.Button btnHuyTimMaKQT;
         private System.Windows.Forms.Label lbKhachHang;
         private System.Windows.Forms.DataGridView gvKhachHang;
+        private System.Windows.Forms.Label lbThiSinh_ChungChi;
+        private System.Windows.Forms.DataGridView gvThiSinh_ChungChi;
+        private System.Windows.Forms.Button btnHuyMaTS_ChungChi;
+        private System.Windows.Forms.Button btnTimMaTS_ChungChi;
+        private System.Windows.Forms.TextBox txtMaTS_ChungChi;
+        private System.Windows.Forms.Label lbMaTS_ChungChi;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView gvChungChi;
     }
 }

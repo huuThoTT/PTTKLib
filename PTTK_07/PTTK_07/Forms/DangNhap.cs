@@ -155,6 +155,16 @@ namespace PTTK_07.Forms
                     _capChungChiForm.FormClosed += (s, args) => Application.Exit();
                     this.Hide();
                 }
+                else if (username == "NVTN" && password == "NVTN")
+                {
+                    if (_capChungChiForm == null || _capChungChiForm.IsDisposed)
+                    {
+                        _capChungChiForm = new Forms.CapChungChi();
+                    }
+                    _capChungChiForm.Show();
+                    _capChungChiForm.FormClosed += (s, args) => Application.Exit();
+                    this.Hide();
+                }
             }
         }
     }

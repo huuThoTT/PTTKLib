@@ -1,12 +1,7 @@
 ﻿using PTTK_07.Helpers;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PTTK_07.Forms
@@ -14,36 +9,82 @@ namespace PTTK_07.Forms
     public partial class CapChungChi : Form
     {
         private string maKetQuaThi;
+        private string maThiSinh_ChungChi;
         public CapChungChi()
         {
             InitializeComponent();
-            this.Load += GV_CapChungChi_Load;
+            this.Load += GV_CapChungChi_Load_NVNL;
+            this.Load += GV_CapChungChi_Load_NVTN;
         }
-        private void GV_CapChungChi_Load(object sender, EventArgs e)
+        private void GV_CapChungChi_Load_NVNL(object sender, EventArgs e)
         {
-            LayDanhSachKetQuaThi();
-            LayThiSinh(maKetQuaThi);
-            LayKhachHang(maKetQuaThi);
-            LayLoaiChungChi(maKetQuaThi);
+            LayDanhSachKetQuaThi_NVNL(maKetQuaThi);
+            LayThiSinh_NVNL(maKetQuaThi);
+            LayKhachHang_NVNL(maKetQuaThi);
+            LayLoaiChungChi_NVNL(maKetQuaThi);
         }
-        private void LayDanhSachKetQuaThi()
+        private void GV_CapChungChi_Load_NVTN(object sender, EventArgs e)
         {
+            LayDanhSachChungChi_NVTN(maKetQuaThi);
+        }
+        private void LayDanhSachKetQuaThi_NVNL(string maKetQuaThi)
+        {
+            //try
+            //{
+            //    var kqt = new DB().Select(
+            //    "SELECT MaKQT, SoBaoDanh, DiemSo, NgayCoDiem, MaTS, MaLCC, MaPDT FROM KET_QUA_THI");
+
+            //    DataTable dt = new DataTable();
+            //    dt.Load(kqt);
+
+            //    gvKetQuaThi.DataSource = dt;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
             try
             {
-                var kqt = new DB().Select(
-                "SELECT MaKQT, SoBaoDanh, DiemSo, NgayCoDiem, MaTS, MaLCC, MaPDT FROM KET_QUA_THI");
+                if (maKetQuaThi == null || maKetQuaThi == "M")
+                {
+                    var kqt_all = new DB().Select(
+                    "SELECT MaKQT, SoBaoDanh, DiemSo, NgayCoDiem, MaTS, MaLCC, MaPDT FROM KET_QUA_THI");
 
-                DataTable dt = new DataTable();
-                dt.Load(kqt);
+                    DataTable dt = new DataTable();
+                    dt.Load(kqt_all);
 
-                gvKetQuaThi.DataSource = dt;
+                    gvKetQuaThi.DataSource = dt;
+                }
+                // Gọi phương thức SelectFunction từ DatabaseHelper để truy xuất function F_MaKQT_to_KET_QUA_THI_NVNL
+                else if (maKetQuaThi != null)
+                {
+                    var kqt = new DB().SelectFunction("F_MaKQT_to_KET_QUA_THI_NVNL", maKetQuaThi);
+                    {
+                        if (kqt != null)
+                        {
+                            // Tạo DataTable và load dữ liệu từ SqlDataReader
+                            DataTable dt = new DataTable();
+                            dt.Load(kqt);
+
+                            // Gán DataTable làm nguồn dữ liệu cho GridView
+                            gvKetQuaThi.DataSource = dt;
+                            if (gvKetQuaThi.Columns.Count > 0)
+                            {
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void LayKhachHang(string maKetQuaThi)
+        private void LayKhachHang_NVNL(string maKetQuaThi)
         {
             try
             {
@@ -52,17 +93,33 @@ namespace PTTK_07.Forms
                     maKetQuaThi = "M";
                 }
                 // Gọi phương thức SelectFunction từ DatabaseHelper để truy xuất function F_MaKQT_to_KHACH_HANG_NVNL
-                var ts = new DB().SelectFunction("F_MaKQT_to_KHACH_HANG_NVNL", maKetQuaThi);
-                //using (var ts = db.SelectFunction("F_MaKQT_to_KHACH_HANG_NVNL", v_maKQT))
+                var kh = new DB().SelectFunction("F_MaKQT_to_KHACH_HANG_NVNL", maKetQuaThi);
+                //using (var kh = db.SelectFunction("F_MaKQT_to_KHACH_HANG_NVNL", v_maKQT))
                 {
-                    if (ts != null)
+                    if (kh != null)
                     {
                         // Tạo DataTable và load dữ liệu từ SqlDataReader
                         DataTable dt = new DataTable();
-                        dt.Load(ts);
+                        dt.Load(kh);
 
                         // Gán DataTable làm nguồn dữ liệu cho GridView
                         gvKhachHang.DataSource = dt;
+                        if (gvKhachHang.Columns.Count > 0)
+                        {
+                            // Đổi độ rộng cột
+                            if (gvKhachHang.Columns["Mã khách hàng"] != null)
+                            {
+                                gvKhachHang.Columns["Mã khách hàng"].Width = 110;
+                            }
+                            if (gvKhachHang.Columns["Tên khách hàng"] != null)
+                            {
+                                gvKhachHang.Columns["Tên khách hàng"].Width = 120;
+                            }
+                            if (gvKhachHang.Columns["Loại khách hàng"] != null)
+                            {
+                                gvKhachHang.Columns["Loại khách hàng"].Width = 120;
+                            }
+                        }
                     }
                     else
                     {
@@ -75,7 +132,7 @@ namespace PTTK_07.Forms
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void LayThiSinh(string maKetQuaThi)
+        private void LayThiSinh_NVNL(string maKetQuaThi)
         {
             try
             {
@@ -94,6 +151,18 @@ namespace PTTK_07.Forms
 
                         // Gán DataTable làm nguồn dữ liệu cho GridView
                         gvThiSinh.DataSource = dt;
+                        if (gvThiSinh.Columns.Count > 0)
+                        {
+                            // Đổi độ rộng cột
+                            if (gvThiSinh.Columns["Căn cước công dân"] != null)
+                            {
+                                gvThiSinh.Columns["Căn cước công dân"].Width = 130;
+                            }
+                            if (gvThiSinh.Columns["Mã khách hàng"] != null)
+                            {
+                                gvThiSinh.Columns["Mã khách hàng"].Width = 110;
+                            }
+                        }
                     }
                     else
                     {
@@ -106,7 +175,7 @@ namespace PTTK_07.Forms
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void LayLoaiChungChi(string maKetQuaThi)
+        private void LayLoaiChungChi_NVNL(string maKetQuaThi)
         {
             try
             {
@@ -115,16 +184,36 @@ namespace PTTK_07.Forms
                     maKetQuaThi = "M";
                 }
                 // Gọi phương thức SelectFunction từ DatabaseHelper để truy xuất function F_MaKQT_to_LOAI_CHUNG_CHI_NVNL
-                var ts = new DB().SelectFunction("F_MaKQT_to_LOAI_CHUNG_CHI_NVNL", maKetQuaThi);
+                var lcc = new DB().SelectFunction("F_MaKQT_to_LOAI_CHUNG_CHI_NVNL", maKetQuaThi);
                 {
-                    if (ts != null)
+                    if (lcc != null)
                     {
                         // Tạo DataTable và load dữ liệu từ SqlDataReader
                         DataTable dt = new DataTable();
-                        dt.Load(ts);
+                        dt.Load(lcc);
 
                         // Gán DataTable làm nguồn dữ liệu cho GridView
                         gvLoaiChungChi.DataSource = dt;
+                        if (gvLoaiChungChi.Columns.Count > 0)
+                        {
+                            // Đổi độ rộng cột
+                            if (gvLoaiChungChi.Columns["Mã loại chứng chỉ"] != null)
+                            {
+                                gvLoaiChungChi.Columns["Mã loại chứng chỉ"].Width = 120;
+                            }
+                            if (gvLoaiChungChi.Columns["Tên loại chứng chỉ"] != null)
+                            {
+                                gvLoaiChungChi.Columns["Tên loại chứng chỉ"].Width = 120;
+                            }
+                            if (gvLoaiChungChi.Columns["Lĩnh vực chứng chỉ"] != null)
+                            {
+                                gvLoaiChungChi.Columns["Lĩnh vực chứng chỉ"].Width = 130;
+                            }
+                            if (gvLoaiChungChi.Columns["Thời hạn (tháng)"] != null)
+                            {
+                                gvLoaiChungChi.Columns["Thời hạn (tháng)"].Width = 110;
+                            }
+                        }
                     }
                     else
                     {
@@ -143,18 +232,20 @@ namespace PTTK_07.Forms
             maKetQuaThi = txtMaKQT.Text.Trim();
             if (!string.IsNullOrWhiteSpace(maKetQuaThi))
             {
-                LayThiSinh(maKetQuaThi);
-                LayKhachHang(maKetQuaThi);
-                LayLoaiChungChi(maKetQuaThi);
+                LayDanhSachKetQuaThi_NVNL(maKetQuaThi);
+                LayThiSinh_NVNL(maKetQuaThi);
+                LayKhachHang_NVNL(maKetQuaThi);
+                LayLoaiChungChi_NVNL(maKetQuaThi);
             }
         }
 
         private void btnHuyTimMaKQT_Click(object sender, EventArgs e)
         {
             maKetQuaThi = "M";
-            LayThiSinh(maKetQuaThi);
-            LayKhachHang(maKetQuaThi);
-            LayLoaiChungChi(maKetQuaThi);
+            LayDanhSachKetQuaThi_NVNL(maKetQuaThi);
+            LayThiSinh_NVNL(maKetQuaThi);
+            LayKhachHang_NVNL(maKetQuaThi);
+            LayLoaiChungChi_NVNL(maKetQuaThi);
         }
 
         private void btnNhapDiemSo_Click(object sender, EventArgs e)
@@ -183,12 +274,6 @@ namespace PTTK_07.Forms
                 return;
             }
 
-            if (diemSoNum < 0 || diemSoNum > 100)
-            {
-                MessageBox.Show("Điểm số không hợp lệ. Vui lòng nhập số từ 0 đến 100.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             try
             {
                 // Tạo đối tượng DB và danh sách tham số
@@ -207,7 +292,7 @@ namespace PTTK_07.Forms
                 {
                     MessageBox.Show("Cập nhật điểm số thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // Làm mới GridView
-                    LayDanhSachKetQuaThi();
+                    LayDanhSachKetQuaThi_NVNL(null);
                 }
                 else
                 {
@@ -218,6 +303,73 @@ namespace PTTK_07.Forms
             {
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void LayDanhSachChungChi_NVTN(string maKetQuaThi)
+        {
+            try
+            {
+                if (maKetQuaThi == null || maKetQuaThi == "M")
+                {
+                    var cc_all = new DB().Select(
+                    "SELECT * FROM CHUNG_CHI");
+
+                    DataTable dt = new DataTable();
+                    dt.Load(cc_all);
+
+                    gvChungChi.DataSource = dt;
+                    // Đổi độ rộng cột
+                    //if (gvChungChi.Columns["Mã loại chứng chỉ"] != null)
+                    //{
+                    //    gvChungChi.Columns["Mã loại chứng chỉ"].Width = 120;
+                    //}
+                }
+                // Gọi phương thức SelectFunction từ DatabaseHelper để truy xuất function F_MaTS_to_CHUNG_CHI_NVNL
+                else if (maKetQuaThi != null)
+                {
+                    var cc = new DB().SelectFunction("F_MaTS_to_CHUNG_CHI_NVNL", maKetQuaThi);
+                    {
+                        if (cc != null)
+                        {
+                            // Tạo DataTable và load dữ liệu từ SqlDataReader
+                            DataTable dt = new DataTable();
+                            dt.Load(cc);
+
+                            // Gán DataTable làm nguồn dữ liệu cho GridView
+                            gvChungChi.DataSource = dt;
+                            if (gvChungChi.Columns.Count > 0)
+                            {
+                                // Đổi độ rộng cột
+                                if (gvChungChi.Columns["Mã loại chứng chỉ"] != null)
+                                {
+                                    gvChungChi.Columns["Mã loại chứng chỉ"].Width = 120;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnTimMaTS_ChungChi_Click(object sender, EventArgs e)
+        {
+            maThiSinh_ChungChi = txtMaTS_ChungChi.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(maThiSinh_ChungChi))
+            {
+                LayDanhSachChungChi_NVTN(maThiSinh_ChungChi);
+            }
+        }
+
+        private void btnHuyMaTS_ChungChi_Click(object sender, EventArgs e)
+        {
+            maThiSinh_ChungChi = "M";
+            LayDanhSachChungChi_NVTN(maThiSinh_ChungChi);
         }
     }
 }
