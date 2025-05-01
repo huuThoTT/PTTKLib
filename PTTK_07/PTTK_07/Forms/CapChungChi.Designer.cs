@@ -134,6 +134,7 @@
             this.btnNhapDiemSo.TabIndex = 18;
             this.btnNhapDiemSo.Text = "Nhập";
             this.btnNhapDiemSo.UseVisualStyleBackColor = true;
+            this.btnNhapDiemSo.Click += new System.EventHandler(this.btnNhapDiemSo_Click);
             // 
             // lbMaKQT
             // 
@@ -173,6 +174,7 @@
             this.btnHuyTimMaKQT.TabIndex = 22;
             this.btnHuyTimMaKQT.Text = "Hủy tìm";
             this.btnHuyTimMaKQT.UseVisualStyleBackColor = true;
+            this.btnHuyTimMaKQT.Click += new System.EventHandler(this.btnHuyTimMaKQT_Click);
             // 
             // lbKhachHang
             // 
