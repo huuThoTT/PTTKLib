@@ -304,19 +304,20 @@ namespace PTTK_07.Forms
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void LayDanhSachChungChi_NVTN(string maKetQuaThi)
+        private void LayDanhSachChungChi_NVTN(string maThiSinh_ChungChi)
         {
             try
             {
-                if (maKetQuaThi == null || maKetQuaThi == "M")
+                if (maThiSinh_ChungChi == null)
                 {
-                    var cc_all = new DB().Select(
-                    "SELECT * FROM CHUNG_CHI");
+                    maThiSinh_ChungChi = "M";
+                    //var cc_all = new DB().Select(
+                    //"SELECT * FROM CHUNG_CHI");
 
-                    DataTable dt = new DataTable();
-                    dt.Load(cc_all);
+                    //DataTable dt = new DataTable();
+                    //dt.Load(cc_all);
 
-                    gvChungChi.DataSource = dt;
+                    //gvChungChi.DataSource = dt;
                     // Đổi độ rộng cột
                     //if (gvChungChi.Columns["Mã loại chứng chỉ"] != null)
                     //{
@@ -324,9 +325,10 @@ namespace PTTK_07.Forms
                     //}
                 }
                 // Gọi phương thức SelectFunction từ DatabaseHelper để truy xuất function F_MaTS_to_CHUNG_CHI_NVNL
-                else if (maKetQuaThi != null)
+                //else if (maThiSinh_ChungChi != null)
+                var cc = new DB().SelectFunction("F_MaTS_to_CHUNG_CHI_NVNL", maThiSinh_ChungChi);
                 {
-                    var cc = new DB().SelectFunction("F_MaTS_to_CHUNG_CHI_NVNL", maKetQuaThi);
+                    //var cc = new DB().SelectFunction("F_MaTS_to_CHUNG_CHI_NVNL", maThiSinh_ChungChi);
                     {
                         if (cc != null)
                         {
