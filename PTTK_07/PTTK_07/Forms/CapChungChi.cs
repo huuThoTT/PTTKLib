@@ -28,7 +28,7 @@ namespace PTTK_07.Forms
         private void GV_CapChungChi_Load_NVTN(object sender, EventArgs e)
         {
             LayDanhSachKhachHang_NVTN(maKhachHang_ChungChi);
-            LayDanhSachChungChi_NVTN(maKhachHang_ChungChi);
+            LayDanhSachChungChi_ThiSinh_NVTN(maKhachHang_ChungChi);
         }
         //private void LayDanhSachKetQuaThi_NVNL(string maKetQuaThi)
         //{
@@ -300,6 +300,8 @@ namespace PTTK_07.Forms
                 LayLoaiChungChi_NVNL(maKetQuaThi);
                 txtMaKQT_NVNL.Enabled = false;
                 btnTimMaKQT_NVNL.Enabled = false;
+                numDiemSo_NVNL.Enabled = true;
+                btnNhapDiemSo_NVNL.Enabled = true;
             }
         }
 
@@ -313,9 +315,12 @@ namespace PTTK_07.Forms
             txtMaKQT_NVNL.Enabled = true;
             txtMaKQT_NVNL.Text = "";
             btnTimMaKQT_NVNL.Enabled = true;
+            numDiemSo_NVNL.Value = 0;
+            numDiemSo_NVNL.Enabled = false;
+            btnNhapDiemSo_NVNL.Enabled = false;
         }
 
-        private void btnNhapDiemSo_Click(object sender, EventArgs e)
+        private void btnNhapDiemSo_NVNL_Click(object sender, EventArgs e)
         {
             // Lấy giá trị từ NumericUpDown hoặc TextBox
             float diemSoNum;
@@ -359,20 +364,26 @@ namespace PTTK_07.Forms
                 {
                     MessageBox.Show("Cập nhật điểm số thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // Làm mới GridView
-                    LayDanhSachKetQuaThi_NVNL(null);
-                    txtMaKQT_NVNL.Enabled = true;
-                    txtMaKQT_NVNL.Text = "";
-                    btnTimMaKQT_NVNL.Enabled = true;
-                }
-                else
-                {
-                    MessageBox.Show("Cập nhật điểm số thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LayDanhSachKetQuaThi_NVNL(maKetQuaThi);
+                    //maKetQuaThi = "M";
+                    //LayDanhSachKetQuaThi_NVNL(maKetQuaThi);
+                    //LayThiSinh_NVNL(maKetQuaThi);
+                    //LayKhachHang_NVNL(maKetQuaThi);
+                    //LayLoaiChungChi_NVNL(maKetQuaThi);
+                    //txtMaKQT_NVNL.Enabled = true;
+                    //txtMaKQT_NVNL.Text = "";
+                    //btnTimMaKQT_NVNL.Enabled = true;
+                    //this.btnHuyTimMaKQT_NVNL.Click += new System.EventHandler(this.btnHuyTimMaKQT_Click);
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi cập nhật điểm số: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         //----------------------------------------------------------------------------------------
@@ -442,45 +453,74 @@ namespace PTTK_07.Forms
                 MessageBox.Show($"Lỗi khi tải danh sách kết quả thi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void LayDanhSachChungChi_NVTN(string maKhachHang_ChungChi)
+        private void LayDanhSachChungChi_ThiSinh_NVTN(string maKhachHang_ChungChi)
         {
             try
             {
-                if (maKhachHang_ChungChi == null)
+                var db = new DB();
+                Dictionary<string, object> parameters = null;
+
+                // Xử lý maKhachHang_ChungChi
+                if (string.IsNullOrWhiteSpace(maKhachHang_ChungChi))
                 {
                     maKhachHang_ChungChi = "M";
                 }
-                //else if (maKhachHang_ChungChi != null)
-                var cc = new DB().SelectFunction("F_MaKH_to_CHUNG_CHI_THI_SINH_NVTN", maKhachHang_ChungChi);
-                {
-                    {
-                        if (cc != null)
-                        {
-                            // Tạo DataTable và load dữ liệu từ SqlDataReader
-                            DataTable dt = new DataTable();
-                            dt.Load(cc);
 
-                            // Gán DataTable làm nguồn dữ liệu cho GridView
-                            gvChungChi_ThiSinh_NVTN.DataSource = dt;
-                            if (gvChungChi_ThiSinh_NVTN.Columns.Count > 0)
+                // Thiết lập tham số cho SelectFunction2
+                parameters = new Dictionary<string, object>
+                    {
+                        { "@v_makh", maKhachHang_ChungChi }
+                    };
+
+                // Gọi SelectFunction2
+                using (var cc = db.SelectFunction2("F_MaKH_to_CHUNG_CHI_THI_SINH_NVTN", parameters))
+                {
+                    if (cc != null && !cc.IsClosed)
+                    {
+                        // Tạo DataTable và load dữ liệu
+                        DataTable dt = new DataTable();
+                        dt.Load(cc);
+
+                        // Gán DataSource cho DataGridView
+                        gvChungChi_ThiSinh_NVTN.DataSource = dt;
+
+                        // Thêm cột checkbox nếu chưa tồn tại
+                        if (!gvChungChi_ThiSinh_NVTN.Columns.Contains("Select"))
+                        {
+                            DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn
                             {
-                                // Đổi độ rộng cột
-                                if (gvChungChi_ThiSinh_NVTN.Columns["Mã loại chứng chỉ"] != null)
-                                {
-                                    gvChungChi_ThiSinh_NVTN.Columns["Mã loại chứng chỉ"].Width = 120;
-                                }
+                                Name = "Select",
+                                HeaderText = "Chọn",
+                                Width = 60,
+                                FalseValue = false,
+                                TrueValue = true
+                            };
+                            gvChungChi_ThiSinh_NVTN.Columns.Insert(0, checkBoxColumn); // Thêm cột checkbox ở đầu
+                        }
+
+                        // Tùy chỉnh các cột khác
+                        if (gvChungChi_ThiSinh_NVTN.Columns.Count > 0)
+                        {
+                            if (gvChungChi_ThiSinh_NVTN.Columns["Căn cước công dân"] != null)
+                            {
+                                gvChungChi_ThiSinh_NVTN.Columns["Căn cước công dân"].Width = 130;
+                            }
+                            if (gvChungChi_ThiSinh_NVTN.Columns["Tên loại chứng chỉ"] != null)
+                            {
+                                gvChungChi_ThiSinh_NVTN.Columns["Tên loại chứng chỉ"].Width = 120;
                             }
                         }
-                        else
-                        {
-                            MessageBox.Show("Không tìm thấy dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
+                    }
+                    else
+                    {
+                        gvChungChi_ThiSinh_NVTN.DataSource = null;
+                        MessageBox.Show("Không tìm thấy dữ liệu cho Mã Khách Hàng này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi tải danh sách chứng chỉ: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnTimMaKH_ChungChi_Click(object sender, EventArgs e)
@@ -489,7 +529,7 @@ namespace PTTK_07.Forms
             if (!string.IsNullOrWhiteSpace(maKhachHang_ChungChi))
             {
                 LayDanhSachKhachHang_NVTN(maKhachHang_ChungChi);
-                LayDanhSachChungChi_NVTN(maKhachHang_ChungChi);
+                LayDanhSachChungChi_ThiSinh_NVTN(maKhachHang_ChungChi);
                 txtMaKH_NVTN.Enabled = false;
                 btnTimMaKH_NVTN.Enabled = false;
             }
@@ -498,7 +538,7 @@ namespace PTTK_07.Forms
         {
             maKhachHang_ChungChi = "M";
             LayDanhSachKhachHang_NVTN(maKhachHang_ChungChi);
-            LayDanhSachChungChi_NVTN(maKhachHang_ChungChi);
+            LayDanhSachChungChi_ThiSinh_NVTN(maKhachHang_ChungChi);
             txtMaKH_NVTN.Enabled = true;
             txtMaKH_NVTN.Text = "";
             btnTimMaKH_NVTN.Enabled = true;

@@ -52,6 +52,7 @@
             this.lbChungChi_ThiSinh_NVTN = new System.Windows.Forms.Label();
             this.gvChungChi_ThiSinh_NVTN = new System.Windows.Forms.DataGridView();
             this.btnLogOut = new System.Windows.Forms.Button();
+            this.btnTraChungChi_NVTN = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gvKetQuaThi_NVNL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvLoaiChungChi_NVNL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvThiSinh_NVNL)).BeginInit();
@@ -120,8 +121,21 @@
             // 
             // numDiemSo_NVNL
             // 
+            this.numDiemSo_NVNL.DecimalPlaces = 1;
+            this.numDiemSo_NVNL.Enabled = false;
             this.numDiemSo_NVNL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.numDiemSo_NVNL.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
             this.numDiemSo_NVNL.Location = new System.Drawing.Point(178, 348);
+            this.numDiemSo_NVNL.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numDiemSo_NVNL.Minimum = -1;
             this.numDiemSo_NVNL.Name = "numDiemSo_NVNL";
             this.numDiemSo_NVNL.Size = new System.Drawing.Size(162, 26);
             this.numDiemSo_NVNL.TabIndex = 14;
@@ -138,6 +152,7 @@
             // 
             // btnNhapDiemSo_NVNL
             // 
+            this.btnNhapDiemSo_NVNL.Enabled = false;
             this.btnNhapDiemSo_NVNL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnNhapDiemSo_NVNL.Location = new System.Drawing.Point(375, 343);
             this.btnNhapDiemSo_NVNL.Name = "btnNhapDiemSo_NVNL";
@@ -145,7 +160,7 @@
             this.btnNhapDiemSo_NVNL.TabIndex = 18;
             this.btnNhapDiemSo_NVNL.Text = "Nhập";
             this.btnNhapDiemSo_NVNL.UseVisualStyleBackColor = true;
-            this.btnNhapDiemSo_NVNL.Click += new System.EventHandler(this.btnNhapDiemSo_Click);
+            this.btnNhapDiemSo_NVNL.Click += new System.EventHandler(this.btnNhapDiemSo_NVNL_Click);
             // 
             // lbMaKQT_NVNL
             // 
@@ -296,11 +311,22 @@
             this.btnLogOut.UseVisualStyleBackColor = false;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
+            // btnTraChungChi_NVTN
+            // 
+            this.btnTraChungChi_NVTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnTraChungChi_NVTN.Location = new System.Drawing.Point(1413, 693);
+            this.btnTraChungChi_NVTN.Name = "btnTraChungChi_NVTN";
+            this.btnTraChungChi_NVTN.Size = new System.Drawing.Size(137, 34);
+            this.btnTraChungChi_NVTN.TabIndex = 91;
+            this.btnTraChungChi_NVTN.Text = "Trả chứng chỉ";
+            this.btnTraChungChi_NVTN.UseVisualStyleBackColor = true;
+            // 
             // CapChungChi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 849);
+            this.Controls.Add(this.btnTraChungChi_NVTN);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.lbChungChi_ThiSinh_NVTN);
             this.Controls.Add(this.gvChungChi_ThiSinh_NVTN);
@@ -365,5 +391,6 @@
         private System.Windows.Forms.Label lbChungChi_ThiSinh_NVTN;
         private System.Windows.Forms.DataGridView gvChungChi_ThiSinh_NVTN;
         private System.Windows.Forms.Button btnLogOut;
+        private System.Windows.Forms.Button btnTraChungChi_NVTN;
     }
 }

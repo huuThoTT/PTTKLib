@@ -16,6 +16,7 @@ namespace PTTK_07.Helpers
 //        public static bool Connect()
 //        {
 //            string connStr = @"Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
+//            string connStr = @"Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
 
 //            try
 //            {
