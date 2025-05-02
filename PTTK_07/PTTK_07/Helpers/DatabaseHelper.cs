@@ -16,7 +16,8 @@ namespace PTTK_07.Helpers
 //        public static bool Connect()
 //        {
 //            string connStr = @"Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
-
+//            string connStr = @"Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
+//            string ConnectionString = @"Data Source=LAPTOP-I0V0SQMU\MS_SQLSERVER22;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
 //            try
 //            {
 //                Connection = new SqlConnection(connStr);
@@ -44,7 +45,8 @@ namespace PTTK_07.Helpers
     class DB
     {
         //1.Address of SQL server and database(Connection String)
-        string ConnectionString = @"Data Source=LAPTOP-I0V0SQMU\MS_SQLSERVER22;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";        //2.Establish connection(c# sqlconnection class)
+        string ConnectionString = @"Data Source=LAPTOP-I0V0SQMU\MS_SQLSERVER22;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
+        //2.Establish connection(c# sqlconnection class)
         SqlConnection con = null;
 
         public DB()
@@ -117,6 +119,44 @@ namespace PTTK_07.Helpers
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+        public SqlDataReader SelectFunction2(string functionName, Dictionary<string, object> parameters = null)
+        {
+            SqlConnection con = new SqlConnection(ConnectionString);
+            try
+            {
+                con.Open();
+
+                // Xây dựng câu truy vấn động
+                string paramList = parameters != null && parameters.Count > 0
+                    ? "(" + string.Join(", ", parameters.Keys) + ")"
+                    : "()";
+
+                string query = $"SELECT * FROM {functionName}{paramList}";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    if (parameters != null)
+                    {
+                        foreach (var param in parameters)
+                        {
+                            cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                        }
+                    }
+
+                    // Thực thi và trả về SqlDataReader
+                    return cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Đóng kết nối nếu còn mở
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                MessageBox.Show($"Lỗi khi gọi hàm SQL {functionName}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }
