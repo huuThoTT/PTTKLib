@@ -160,6 +160,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\Lich_BUS.cs" />
+    <Compile Include="Business\MH_GiaHan_DacBiet.cs" />
+    <Compile Include="data\Lich_DAO.cs" />
+    <Compile Include="data\PhieuGiaHan_DAO.cs" />
     <Compile Include="Forms\CapChungChi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,12 +193,6 @@
     </Compile>
     <Compile Include="Forms\GiaHanDacBiet.Designer.cs">
       <DependentUpon>GiaHanDacBiet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\GiaHanTinhPhi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\GiaHanTinhPhi.Designer.cs">
-      <DependentUpon>GiaHanTinhPhi.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LapPhieuDangKy.cs">
       <SubType>Form</SubType>
@@ -231,9 +229,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GiaHanDacBiet.resx">
       <DependentUpon>GiaHanDacBiet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\GiaHanTinhPhi.resx">
-      <DependentUpon>GiaHanTinhPhi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LapPhieuDangKy.resx">
       <DependentUpon>LapPhieuDangKy.cs</DependentUpon>
