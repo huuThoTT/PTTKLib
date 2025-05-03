@@ -12,11 +12,11 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PTTK_07.Forms
 {
-    public partial class ThanhToanCaNhan : Form
+    public partial class ThanhToan : Form
     {
         private string MaPDK;
         private string MaHoaDon;
-        public ThanhToanCaNhan()
+        public ThanhToan()
         {
             InitializeComponent();
             this.Load += GV_LapPhieuDangKy_Load;
@@ -65,7 +65,7 @@ namespace PTTK_07.Forms
         {
             try
             {
-                var pdk = new DB().Select("SELECT MaPDK, TrangThai, NgayDangKyThi, HanThanhToan, MaLCC, MaLT, MaKH, MaTS, MaNVTiepNhan FROM PHIEU_DANG_KY");
+                var pdk = new DB().Select("SELECT MaPDK, TrangThai, HanThanhToan, MaLCC, MaLT, MaKH, MaTS, MaNVTiepNhan FROM PHIEU_DANG_KY");
 
                 DataTable dt = new DataTable();
                 dt.Load(pdk);
@@ -82,7 +82,7 @@ namespace PTTK_07.Forms
         {
             try
             {
-                var pdk = new DB().Select("SELECT MaHD, NgayGioThanhToan, SoTienThanhToan, HinhThucThanhToan, TrangThai, ChietKhau, MaPDK,  MaNVKeToan FROM HOA_DON");
+                var pdk = new DB().Select("SELECT MaHD, NgayGioThanhToan, SoTienThanhToan, HinhThucThanhToan,  ChietKhau, MaPDK,  MaNVKeToan FROM HOA_DON");
 
                 DataTable dt = new DataTable();
                 dt.Load(pdk);
@@ -106,7 +106,6 @@ namespace PTTK_07.Forms
             string NewMaPDK = txtMaPDK.Text.Trim();
             string NewSoTien = txtSoTien.Text.Trim();
             string NewChietKhau = txtChietKhau.Text.Trim();
-            string NewTrangThai = "Đã TT";
             DateTime NewNgayGioTT = dtpNewNgayGioTT.Value;
             string NewMaNVKT = "NHVN000003";
             string NewHinhThucThanhToan = cbbHinhThucTT.SelectedValue?.ToString();
@@ -121,7 +120,6 @@ namespace PTTK_07.Forms
             { "@v_ChietKhau", NewChietKhau },
             { "@v_MaNVKeToan", NewMaNVKT },
             { "@v_HinhThucThanhToan", NewHinhThucThanhToan},
-            { "@v_TrangThai", NewTrangThai},
             { "@v_NgayGioThanhToan", NewNgayGioTT}
         };
 

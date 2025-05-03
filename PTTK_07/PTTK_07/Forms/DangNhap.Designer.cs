@@ -107,8 +107,7 @@ namespace PTTK_07.Forms
             "Đăng ký thi Cá nhân",
             "Đăng ký thi Đơn vị",
             "Lập Phiếu đăng ký",
-            "Thanh toán Cá nhân",
-            "Thanh toán Đơn vị",
+            "Thanh toán",
             "Gia hạn Đặc biệt",
             "Gia hạn Tính phí",
             "Cấp chứng chỉ"});
