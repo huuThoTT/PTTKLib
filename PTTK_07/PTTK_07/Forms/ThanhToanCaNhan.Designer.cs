@@ -1,6 +1,6 @@
 ﻿namespace PTTK_07.Forms
 {
-    partial class ThanhToanCaNhan
+    partial class ThanhToan
     {
         /// <summary>
         /// Required designer variable.
@@ -208,12 +208,12 @@
             // btnLogOut
             // 
             this.btnLogOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnLogOut.Location = new System.Drawing.Point(1439, 755);
+            this.btnLogOut.Location = new System.Drawing.Point(1393, 755);
             this.btnLogOut.Margin = new System.Windows.Forms.Padding(4);
             this.btnLogOut.Name = "btnLogOut";
-            this.btnLogOut.Size = new System.Drawing.Size(97, 42);
+            this.btnLogOut.Size = new System.Drawing.Size(143, 42);
             this.btnLogOut.TabIndex = 65;
-            this.btnLogOut.Text = "Logout";
+            this.btnLogOut.Text = "Đăng xuất";
             this.btnLogOut.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -314,7 +314,7 @@
             this.label3.TabIndex = 89;
             this.label3.Text = "Mã hóa đơn";
             // 
-            // ThanhToanCaNhan
+            // ThanhToan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -344,7 +344,7 @@
             this.Controls.Add(this.gvPhieuDangKy);
             this.Controls.Add(this.lbKhachHang);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "ThanhToanCaNhan";
+            this.Name = "ThanhToan";
             this.Text = "Thanh toán";
             ((System.ComponentModel.ISupportInitialize)(this.gvPhieuDangKy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvHoaDon)).EndInit();

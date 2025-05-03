@@ -19,7 +19,9 @@ namespace PTTK_07.Forms
             btnDangNhap.Click += btnDangNhap_Click;
         }
         private Forms.DangKyThiCaNhan _dangKyThiForm;
-        private Forms.ThanhToanCaNhan _thanhToanForm;
+        private Forms.LapPhieuDangKy _lapPhieuForm;
+        private Forms.ThanhToan _thanhToanForm;
+        private Forms.ThanhToanDonVi _thanhToanDonViForm;
         private Forms.GiaHanDacBiet _giaHanDacBietForm;
         private Forms.GiaHanTinhPhi _giaHanTinhPhiForm;
         private Forms.CapChungChi _capChungChiForm;
@@ -42,13 +44,13 @@ namespace PTTK_07.Forms
                     this.Hide();
                 }
             }
-            else if (usecase == "Thanh toán Cá nhân")
+            else if (usecase == "Thanh toán")
             {
                 if (username == "NVKT" && password == "NVKT")
                 {
                     if (_thanhToanForm == null || _thanhToanForm.IsDisposed)
                     {
-                        _thanhToanForm = new Forms.ThanhToanCaNhan();
+                        _thanhToanForm = new Forms.ThanhToan();
                     }
                     _thanhToanForm.Show();
                     _thanhToanForm.FormClosed += (s, args) => Application.Exit();
