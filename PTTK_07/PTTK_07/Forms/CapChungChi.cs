@@ -5,6 +5,8 @@ using System.Data;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 using System.Drawing;
+using System.Net;
+using System.Net.Mail;
 namespace PTTK_07.Forms
 {
     public partial class CapChungChi : Form
@@ -449,8 +451,57 @@ namespace PTTK_07.Forms
         }
         private void btnEmail_NVNL_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (maKetQuaThi == null)
+                {
+                    maKetQuaThi = "M";
+                }
+                var kh = new DB().SelectFunction("F_MaKQT_to_Email_NVNL", maKetQuaThi);
+                {
+                    if (kh != null)
+                    {
+                        DataTable dt = new DataTable();
+                        dt.Load(kh);
+                        string emailKH = dt.Rows[0]["email"].ToString();
+                        //SendEmail(emailKH);
+                        MessageBox.Show($"Đã gửi tới email {emailKH}");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+        //private void SendEmail(string toEmail)
+        //{
+        //    string fromEmail = "@gmail.com";
+        //    string fromPassword = "";
+
+        //    var smtp = new SmtpClient
+        //    {
+        //        Host = "smtp.gmail.com",
+        //        Port = 587,
+        //        EnableSsl = true,
+        //        DeliveryMethod = SmtpDeliveryMethod.Network,
+        //        UseDefaultCredentials = false,
+        //        Credentials = new NetworkCredential(fromEmail, fromPassword)
+        //    };
+
+        //    using (var message = new MailMessage(fromEmail, toEmail)
+        //    {
+        //        Subject = "Thông báo kết quả thi",
+        //        Body = "Chào bạn,\n\nĐây là thông báo kết quả thi của bạn. Xin cảm ơn."
+        //    })
+        //    {
+        //        smtp.Send(message);
+        //    }
+        //}
 
         //----------------------------------------------------------------------------------------
         //Nhân viên tiếp nhận

@@ -194,7 +194,7 @@ BEGIN
 			WHERE MaKQT = @MaKQT
 		END
 	END
-	IF @v_diemso >= @DiemChuan
+	IF @v_diemso < @DiemChuan
 	BEGIN
 		IF EXISTS (
 			SELECT MaKQT 
@@ -216,6 +216,19 @@ RETURN (
     SELECT kh.MaKH as N'Mã khách hàng', kh.TenKH as N'Tên khách hàng',
 	kh.LoaiKH as N'Loại khách hàng', kh.SDT as N'Số điện thoại',
 	kh.DiaChi as N'Địa chỉ', kh.Email
+    FROM THI_SINH ts
+	JOIN KET_QUA_THI kqt ON ts.MaTS = kqt.MaTS
+	JOIN KHACH_HANG kh ON kh.MaKH = ts.MaKH
+    WHERE RIGHT(MaKQT, 6) = RIGHT('000000' + LTRIM(RTRIM(@v_makqt)), 6)
+    AND MaKQT LIKE 'KQTH[0-9][0-9][0-9][0-9][0-9][0-9]')
+GO
+
+GO
+CREATE OR ALTER FUNCTION F_MaKQT_to_Email_NVNL(@v_makqt varchar(10))  
+RETURNS TABLE
+AS
+RETURN (
+    SELECT kh.Email
     FROM THI_SINH ts
 	JOIN KET_QUA_THI kqt ON ts.MaTS = kqt.MaTS
 	JOIN KHACH_HANG kh ON kh.MaKH = ts.MaKH
