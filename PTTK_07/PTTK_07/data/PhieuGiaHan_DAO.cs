@@ -11,7 +11,7 @@ namespace PTTK_07.data
     public class PhieuGiaHan_DAO
     {
         //private string connectionString = "Data Source=LAPTOP-I20CCGIS;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True";
-        private string connectionString = "Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private string connectionString = @"Data Source=LAPTOP-I0V0SQMU\MS_SQLSERVER22;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
 
         // Phương thức lấy danh sách MaPDT từ PHIEU_DU_THI
         public List<string> LayDanhSachMaPDT()
