@@ -79,6 +79,40 @@ namespace PTTK_07.Helpers
                 con.Close();
             }
         }
+        public string ExecuteFunctionGetReturn(string functionName, string parameterValue)
+        {
+            string returnValue = null;
+            try
+            {
+                // Open connection
+                con.Open();
+
+                // Prepare SQL query to call the function
+                string query = $"SELECT dbo.{functionName}(@param)";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@param", parameterValue);
+
+                // Execute query and get scalar result
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    returnValue = result.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Close connection
+                if (con.State == System.Data.ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+            return returnValue;
+        }
 
         public SqlDataReader Select(string Query)
         {
