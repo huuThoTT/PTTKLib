@@ -21,7 +21,7 @@ JOIN LICH_THI L ON P.MaLT = L.MaLT;
 
 
 GO
-CREATE PROCEDURE CapNhatSoLuongDaDangKy
+CREATE OR ALTER PROCEDURE CapNhatSoLuongDaDangKy
 AS
 BEGIN
     -- Cập nhật SoLuongDaDangKy dựa trên số lượng PHIEU_DU_THI theo MaLT

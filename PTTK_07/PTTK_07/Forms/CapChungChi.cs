@@ -447,6 +447,10 @@ namespace PTTK_07.Forms
             //    MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //}
         }
+        private void btnEmail_NVNL_Click(object sender, EventArgs e)
+        {
+
+        }
 
         //----------------------------------------------------------------------------------------
         //Nhân viên tiếp nhận
@@ -754,11 +758,6 @@ namespace PTTK_07.Forms
             {
                 MessageBox.Show($"Lỗi khi đăng xuất: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void btnEmail_NVNL_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

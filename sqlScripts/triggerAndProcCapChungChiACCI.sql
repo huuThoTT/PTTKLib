@@ -1,6 +1,7 @@
 ﻿GO
 USE PTTK_TTLT_ACCI
 GO
+-- Cap chung chi
 
 GO
 CREATE OR ALTER FUNCTION F_SELECT_KET_QUA_THI_NVNL()
@@ -193,7 +194,33 @@ BEGIN
 			WHERE MaKQT = @MaKQT
 		END
 	END
+	IF @v_diemso >= @DiemChuan
+	BEGIN
+		IF EXISTS (
+			SELECT MaKQT 
+			FROM CHUNG_CHI
+			WHERE MaKQT = @MaKQT)
+		BEGIN
+			DELETE FROM CHUNG_CHI
+			WHERE MaKQT = @MaKQT
+		END
+	END
 END
+GO
+
+GO
+CREATE OR ALTER FUNCTION F_MaKQT_to_KHACH_HANG_NVNL(@v_makqt varchar(10))  
+RETURNS TABLE
+AS
+RETURN (
+    SELECT kh.MaKH as N'Mã khách hàng', kh.TenKH as N'Tên khách hàng',
+	kh.LoaiKH as N'Loại khách hàng', kh.SDT as N'Số điện thoại',
+	kh.DiaChi as N'Địa chỉ', kh.Email
+    FROM THI_SINH ts
+	JOIN KET_QUA_THI kqt ON ts.MaTS = kqt.MaTS
+	JOIN KHACH_HANG kh ON kh.MaKH = ts.MaKH
+    WHERE RIGHT(MaKQT, 6) = RIGHT('000000' + LTRIM(RTRIM(@v_makqt)), 6)
+    AND MaKQT LIKE 'KQTH[0-9][0-9][0-9][0-9][0-9][0-9]')
 GO
 
 GO
@@ -370,7 +397,7 @@ BEGIN
     WHILE @@FETCH_STATUS = 0
     BEGIN
         -- Chỉ kiểm tra nếu là chứng chỉ MOS
-        IF @TenLoaiChungChi = N'MOS%'
+        IF @TenLoaiChungChi LIKE N'MOS%'
         BEGIN
             -- Kiểm tra điểm từ 0 đến 1000
             IF @DiemSo < 0.0
