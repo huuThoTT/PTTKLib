@@ -162,7 +162,7 @@ namespace PTTK_07.data
                     string query = "SELECT MaHDGH, NgayGioThanhToan, MaPDT, MaYCGH, SoTienThanhToan, MaNVKeToan FROM HOA_DON_GIA_HAN";
                     if (!string.IsNullOrEmpty(maHD))
                     {
-                        query += " WHERE MaHD LIKE '%' + @MaHD + '%'";
+                        query += " WHERE MaHDGH LIKE '%' + @MaHD + '%'";
                     }
 
                     SqlCommand cmd = new SqlCommand(query, conn);
