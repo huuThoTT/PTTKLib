@@ -560,7 +560,7 @@
             this.btnResetFormDangKy.Name = "btnResetFormDangKy";
             this.btnResetFormDangKy.Size = new System.Drawing.Size(150, 34);
             this.btnResetFormDangKy.TabIndex = 88;
-            this.btnResetFormDangKy.Text = "Reset form";
+            this.btnResetFormDangKy.Text = "Reset Nhập phiếu";
             this.btnResetFormDangKy.UseVisualStyleBackColor = true;
             this.btnResetFormDangKy.Click += new System.EventHandler(this.btnResetFormDangKy_Click);
             // 
@@ -572,7 +572,7 @@
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Size = new System.Drawing.Size(100, 40);
             this.btnLogOut.TabIndex = 89;
-            this.btnLogOut.Text = "Log Out";
+            this.btnLogOut.Text = "Đăng xuất";
             this.btnLogOut.UseVisualStyleBackColor = false;
             // 
             // cbbNewMaLTPDK

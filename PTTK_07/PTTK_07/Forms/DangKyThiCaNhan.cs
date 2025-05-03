@@ -141,7 +141,7 @@ namespace PTTK_07.Forms
         {
             try
             {
-                var pdk = new DB().Select("SELECT MaPDK, TrangThai, NgayDangKyThi, HanThanhToan, MaLCC, MaLT, MaKH, MaTS, MaNVTiepNhan FROM PHIEU_DANG_KY");
+                var pdk = new DB().Select("SELECT MaPDK, TrangThai, HanThanhToan, MaLCC, MaLT, MaKH, MaTS, MaNVTiepNhan FROM PHIEU_DANG_KY");
 
                 DataTable dt = new DataTable();
                 dt.Load(pdk);
@@ -315,7 +315,7 @@ namespace PTTK_07.Forms
                 if (success)
                 {
                     MessageBox.Show("Thêm Phiếu đăng ký thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LayDanhSachThiSinh();
+                    LayDanhSachPhieuDangKy();
                 }
                 else
                 {
