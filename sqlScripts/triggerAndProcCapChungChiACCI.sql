@@ -228,7 +228,7 @@ CREATE OR ALTER FUNCTION F_MaKQT_to_Email_NVNL(@v_makqt varchar(10))
 RETURNS TABLE
 AS
 RETURN (
-    SELECT kh.Email
+    SELECT kh.Email, kqt.DiemSo
     FROM THI_SINH ts
 	JOIN KET_QUA_THI kqt ON ts.MaTS = kqt.MaTS
 	JOIN KHACH_HANG kh ON kh.MaKH = ts.MaKH

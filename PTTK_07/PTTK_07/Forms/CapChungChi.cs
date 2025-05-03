@@ -7,6 +7,7 @@ using Microsoft.Data.SqlClient;
 using System.Drawing;
 using System.Net;
 using System.Net.Mail;
+using System.Linq;
 namespace PTTK_07.Forms
 {
     public partial class CapChungChi : Form
@@ -465,7 +466,16 @@ namespace PTTK_07.Forms
                         dt.Load(kh);
                         string emailKH = dt.Rows[0]["email"].ToString();
                         //SendEmail(emailKH);
-                        MessageBox.Show($"Đã gửi tới email {emailKH}");
+                        object rawDiemSo = dt.Rows[0]["diemso"];
+                        if (rawDiemSo != DBNull.Value)
+                        {
+                            float diemSo = Convert.ToSingle(rawDiemSo);
+                            MessageBox.Show($"Đã gửi tới email {emailKH}, điểm số: {diemSo}");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Chưa thể gửi email do chưa có điểm.");
+                        }
                     }
                     else
                     {
