@@ -111,17 +111,26 @@ namespace PTTK_07.Forms
             string NewMaNVKT = "NHVN000003";
             string NewHinhThucThanhToan = cbbHinhThucTT.SelectedValue?.ToString();
 
+            // Kiểm tra dữ liệu hợp lệ
+            if (!decimal.TryParse(NewSoTien, out decimal soTien) || soTien < 0 ||
+                !decimal.TryParse(NewChietKhau, out decimal chietKhau) || chietKhau < 0 ||
+                NewNgayGioTT < DateTime.Now.AddMinutes(-1))
+            {
+                MessageBox.Show("Thêm hóa đơn thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
                 var db = new DB();
                 var parameters = new Dictionary<string, object>
         {
             { "@v_MaPDK", NewMaPDK },
-            { "@v_SoTienThanhToan", NewSoTien },
-            { "@v_ChietKhau", NewChietKhau },
+            { "@v_SoTienThanhToan", soTien },
+            { "@v_ChietKhau", chietKhau },
             { "@v_MaNVKeToan", NewMaNVKT },
-            { "@v_HinhThucThanhToan", NewHinhThucThanhToan},
-            { "@v_NgayGioThanhToan", NewNgayGioTT}
+            { "@v_HinhThucThanhToan", NewHinhThucThanhToan },
+            { "@v_NgayGioThanhToan", NewNgayGioTT }
         };
 
                 bool success = db.ExecuteProcedure("P_INSERT_HOA_DON_NVKT", parameters);
