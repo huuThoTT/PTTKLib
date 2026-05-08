@@ -1,0 +1,40 @@
+.slot-placeholder {
+  border: 2px dashed #dfe1e6;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  color: #6b778c;
+  font-size: 14px;
+}
+.slot-placeholder.error { color: #de350b; border-color: #de350b; }
+.slot-note { font-size: 12px; color: #6b778c; font-style: italic; margin-bottom: 12px; }
+.slot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-height: 280px; overflow-y: auto; }
+.slot-card {
+  border: 2px solid #dfe1e6;
+  border-radius: 10px;
+  padding: 12px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.18s;
+  position: relative;
+}
+.slot-card:hover:not(.full) { border-color: #0052cc; background: #f0f4ff; }
+.slot-card.selected { border-color: #0052cc; background: #e8f0ff; box-shadow: 0 0 0 3px rgba(0,82,204,.15); }
+.slot-card.full { opacity: 0.55; cursor: not-allowed; background: #f4f5f7; }
+.full-badge {
+  position: absolute; top: 5px; right: 5px;
+  background: #de350b; color: #fff;
+  font-size: 9px; font-weight: 700;
+  padding: 2px 5px; border-radius: 99px;
+}
+.slot-day  { font-size: 11px; color: #6b778c; }
+.slot-date { font-size: 15px; font-weight: 700; color: #0d1b2e; margin: 3px 0 8px; }
+.slot-bar-wrap { height: 4px; background: #dfe1e6; border-radius: 99px; overflow: hidden; margin-bottom: 6px; }
+.slot-bar { height: 100%; border-radius: 99px; }
+.slot-bar.avail  { background: #00875a; }
+.slot-bar.almost { background: #f59e0b; }
+.slot-bar.full   { background: #de350b; }
+.slot-status { font-size: 11px; font-weight: 600; }
+.slot-status.avail  { color: #00875a; }
+.slot-status.almost { color: #f59e0b; }
+.slot-status.full   { color: #de350b; }

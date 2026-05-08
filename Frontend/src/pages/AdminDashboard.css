@@ -1,0 +1,105 @@
+/* Admin Dashboard — Dark Glassmorphism Theme */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #0b0f19;
+  color: #e2e8f0;
+  font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.04);
+  border-right: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  padding: 28px 16px;
+}
+.sidebar-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; font-size: 18px; }
+.logo-icon { font-size: 22px; }
+.sidebar-logo strong { color: #00f0ff; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.nav-item {
+  text-decoration: none;
+  color: #94a3b8;
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  transition: all 0.18s;
+}
+.nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.07); color: #e2e8f0; }
+.sidebar-footer { display: flex; align-items: center; gap: 10px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); }
+.avatar { width: 36px; height: 36px; border-radius: 50%; }
+.sidebar-footer div { display: flex; flex-direction: column; }
+.sidebar-footer strong { font-size: 13px; }
+.sidebar-footer span { font-size: 11px; color: #64748b; }
+
+/* Main */
+.admin-main { flex: 1; padding: 32px 36px; overflow-y: auto; }
+.admin-topbar { margin-bottom: 32px; position: relative; }
+.admin-topbar h1 { font-size: 26px; font-weight: 700; }
+.admin-topbar p  { color: #64748b; font-size: 14px; margin-top: 4px; }
+.back-btn {
+  position: absolute; top: 0; right: 0;
+  background: rgba(255,255,255,0.08); color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 16px; border-radius: 8px;
+  font-size: 13px; cursor: pointer; transition: background 0.2s;
+  text-decoration: none;
+}
+.back-btn:hover { background: rgba(255,255,255,0.14); }
+
+.loading { text-align: center; padding: 80px; color: #64748b; font-size: 16px; }
+
+/* KPI Cards */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.kpi-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.kpi-icon { font-size: 24px; width: 44px; height: 44px; background: rgba(255,255,255,0.07); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.kpi-body { display: flex; flex-direction: column; gap: 4px; }
+.kpi-label { font-size: 12px; color: #64748b; }
+.kpi-value { font-size: 22px; font-weight: 700; }
+.kpi-trend { font-size: 12px; color: #10b981; font-weight: 600; }
+.kpi-sub   { font-size: 11px; color: #64748b; }
+
+/* Charts */
+.charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+.chart-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 24px;
+}
+.chart-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 20px; }
+.recharts-cartesian-axis-tick-value { fill: #94a3b8 !important; }
+.recharts-tooltip-wrapper { font-size: 13px !important; }
+
+/* Transactions Table */
+.table-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 24px;
+}
+.table-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
+.tx-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tx-table th { text-align: left; color: #64748b; font-weight: 600; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.tx-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.tx-table tr:last-child td { border-bottom: none; }
+.badge {
+  padding: 3px 10px; border-radius: 99px;
+  font-size: 11px; font-weight: 700;
+}
+.badge.dat  { background: rgba(16,185,129,0.15); color: #10b981; }
+.badge.fail { background: rgba(239,68,68,0.15);  color: #ef4444; }
